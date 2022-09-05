@@ -7,6 +7,7 @@ const qrcode = require("qrcode");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static("public"));
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -18,10 +19,10 @@ app.get("/", (req, res) => {
 app.post("/scan", (req, res) => {
   const inputText = req.body.text;
   console.log(inputText);
-  qrcode.toDataURL(inputText,(err,src)=>{
-    res.render('scan',{
-        qrcode:src,
-    })
+  qrcode.toDataURL(inputText, (err, src) => {
+    res.render("scan", {
+      qrcode: src,
+    });
   });
 });
 
